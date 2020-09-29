@@ -69,10 +69,15 @@ func NewProcess(procId, procCount int) (p *Process) {
 }
 
 func (p *Process) PrintMessage(localId int, msg string) {
+    color := fmtc.Gray
+    if p.Id < len(gColors) {
+        color = gColors[p.Id]
+    }
+
     procChar := byte('a' + p.Id)
-    fmtc.WithColors(gColors[p.Id]).
-        Printf("Process %c %v : %c%v, ts=%v, real=%v\n", 
-                procChar, msg, procChar, localId, p.Clock, now())
+    fmtc.WithColors(color).
+            Printf("Process %c %v : %c%v, ts=%v, real=%v\n", 
+                    procChar, msg, procChar, localId, p.Clock, now())
 }
 
 // Increment increments the component in the clock that represents
