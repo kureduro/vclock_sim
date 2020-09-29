@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"sync"
 	"time"
+
+    "github.com/jucardi/go-terminal-colors"
 )
 
 const (
@@ -11,6 +13,8 @@ const (
     SEND
     RECV
 )
+
+var gColors = []fmtc.Color{ fmtc.LightRed, fmtc.LightGreen, fmtc.LightCyan }
 
 // now is a wrapper around time.Now that prints only the time and no date
 func now() string {
@@ -62,6 +66,13 @@ func NewProcess(procId, procCount int) (p *Process) {
     }
 
     return
+}
+
+func (p *Process) PrintMessage(localId int, msg string) {
+    procChar := byte('a' + p.Id)
+    fmtc.WithColors(gColors[p.Id]).
+        Printf("Process %c %v : %c%v, ts=%v, real=%v\n", 
+                procChar, msg, procChar, localId, p.Clock, now())
 }
 
 // Increment increments the component in the clock that represents
@@ -162,27 +173,21 @@ func (pp *ProcessPool) Run() {
 
 func procHandler(proc *Process, wg *sync.WaitGroup) {
     defer wg.Done()
-    procChar := byte('a' + proc.Id)
 
     for i, ev := range proc.scenario {
         switch ev.op {
         case INTERNAL:
             proc.Increment()
-            fmt.Printf("Process %c MY   : %c%v, ts=%v, real=%v\n", 
-                        procChar, procChar, i, proc.Clock, now())
+            proc.PrintMessage(i, "MY  ")
         case SEND:
             proc.Increment()
-
-            fmt.Printf("Process %c SEND : %c%v, ts=%v, real=%v\n", 
-                        procChar, procChar, i, proc.Clock, now())
-
+            proc.PrintMessage(i, "SEND")
             proc.Send(ev.ch)
         case RECV:
             msg := <-ev.ch
             proc.Sync(msg.t)
             proc.Increment()
-            fmt.Printf("Process %c RECV : %c%v, ts=%v, real=%v\n", 
-                        procChar, procChar, i, proc.Clock, now())
+            proc.PrintMessage(i, "RECV")
         }
     }
 }

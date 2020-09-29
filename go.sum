@@ -1,0 +1,6 @@
+github.com/jucardi/go-terminal-colors v1.0.1 h1:IOJUyMBqoD6NMlXBhGKJaU8xnJRBRhn0816Bhxu2lJs=
+github.com/jucardi/go-terminal-colors v1.0.1/go.mod h1:686iw8ym8ens280KYbhltxphQGYpbqEsfoQjBqXeFs8=
+gopkg.in/jucardi/go-streams.v1 v1.0.2 h1:rTpqXkAo2vOenlw0K6VK4kf0a1oebFGMPvYGrx+I7H8=
+gopkg.in/jucardi/go-streams.v1 v1.0.2/go.mod h1:AW8cOKcilQtjsDr7U9U/Qmp6UgP39U9yNnvLA34EURg=
+gopkg.in/jucardi/go-strings.v1 v1.0.0-20181101205933-287410bfdae0 h1:uIqGXp65xOoL4mAXPJ7I7pKLSpjBCAR/4dGdP2iJSJU=
+gopkg.in/jucardi/go-strings.v1 v1.0.0-20181101205933-287410bfdae0/go.mod h1:T+zaa4ezC/WaRdbZWcYeMMcjhl8OJno1u3/OzKOEEhU=
